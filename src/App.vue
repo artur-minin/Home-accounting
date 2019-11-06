@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style>
-/*"~" is an alias for node_modules*/
+/* "~" is an alias for node_modules */
 @import '~materialize-css/dist/css/materialize.min.css';
 @import 'assets/index.css';
 </style>

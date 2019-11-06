@@ -2,6 +2,7 @@
   <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
       <span class="card-title">Домашняя бухгалтерия</span>
+
       <div class="input-field">
         <input
           id="email"
@@ -19,11 +20,12 @@
           v-else-if="$v.email.$dirty && !$v.email.email"
         >Введите валидный email адрес</small>
       </div>
+
       <div class="input-field">
         <input
           id="password"
           type="password"
-          v-model.trim="password"
+          v-model="password"
           :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
         />
         <label for="password">Пароль</label>
@@ -55,6 +57,7 @@
 
 <script>
 import { email, required, minLength } from 'vuelidate/lib/validators'
+import messages from '@/common/messages'
 
 export default {
   name: 'login',
@@ -91,6 +94,12 @@ export default {
       }
 
       this.$router.push('/')
+    }
+  },
+
+  mounted() {
+    if (messages[this.$route.query.message]) {
+      this.$message(messages[this.$route.query.message])
     }
   }
 }

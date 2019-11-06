@@ -1,9 +1,8 @@
 <template>
   <div class="app-main-layout">
+    <Navbar @toggle-sidebar="isOpen = !isOpen" />
 
-    <Navbar @toggle-sidebar="isOpen = !isOpen"/>
-
-    <Sidebar :isOpen="isOpen"/>
+    <Sidebar :isOpen="isOpen" />
 
     <main class="app-content" :class="{full: !isOpen}">
       <div class="app-page">
@@ -20,16 +19,17 @@
 </template>
 
 <script>
-import Navbar from '@/components/app/Navbar';
-import Sidebar from '@/components/app/Sidebar';
+import Navbar from '@/components/app/Navbar'
+import Sidebar from '@/components/app/Sidebar'
 
 export default {
   name: 'main-layout',
   data: () => ({
-    isOpen: true,
+    isOpen: true
   }),
   components: {
-    Navbar, Sidebar
-  },
+    Navbar,
+    Sidebar
+  }
 }
 </script>
