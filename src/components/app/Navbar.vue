@@ -44,7 +44,8 @@ export default {
   }),
 
   methods: {
-    logout() {
+    async logout() {
+      await this.$store.dispatch('logout')
       this.$router.push('/login?message=logout')
     }
   },
@@ -55,9 +56,7 @@ export default {
     }, 1000)
 
     // "M" is a materialize-css' root object
-    this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
-      constrainWidth: true
-    })
+    this.dropdown = M.Dropdown.init(this.$refs.dropdown)
   },
 
   beforeDestroy() {

@@ -103,7 +103,7 @@ export default {
   },
 
   methods: {
-    submitHandler() {
+    async submitHandler() {
       // "$v" is an alias for vuelidate
       // if the form didn't pass validation
       if (this.$v.$invalid) {
@@ -118,7 +118,11 @@ export default {
         name: this.name
       }
 
-      this.$router.push('/')
+      try {
+        await this.$store.dispatch('register', formData)
+        this.$router.push('/')
+      } catch (error) {}
+
     }
   }
 }

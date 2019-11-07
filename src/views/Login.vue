@@ -79,7 +79,7 @@ export default {
   },
 
   methods: {
-    submitHandler() {
+    async submitHandler() {
       // "$v" is an alias for vuelidate
       // if the form didn't pass validation
       if (this.$v.$invalid) {
@@ -93,12 +93,17 @@ export default {
         password: this.password
       }
 
-      this.$router.push('/')
+      try {
+        await this.$store.dispatch('login', formData)
+        this.$router.push('/')
+      } catch (error) {}
+
     }
   },
 
   mounted() {
     if (messages[this.$route.query.message]) {
+      // $message - custom property from @/common/message.plugin.js
       this.$message(messages[this.$route.query.message])
     }
   }
