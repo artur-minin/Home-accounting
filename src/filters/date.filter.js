@@ -1,5 +1,5 @@
-export default function dateFilter(value, format = 'date') {
-  const options = {
+export default function dateFilter(value, format = 'date', userOptions = {}) {
+  let options = {
     weekday: 'long'
   }
 
@@ -13,6 +13,8 @@ export default function dateFilter(value, format = 'date') {
     options.minute = '2-digit'
     options.hour = '2-digit'
   }
+
+  options = { ...options, ...userOptions }
 
   return Intl.DateTimeFormat('ru-Ru', options).format(new Date(value));
 }

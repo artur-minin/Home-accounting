@@ -5,7 +5,8 @@
     <Sidebar :isOpen="isOpen" />
 
     <main class="app-content" :class="{full: !isOpen}">
-      <div class="app-page">
+      <Loader v-if="loading" />
+      <div class="app-page" v-else>
         <router-view />
       </div>
     </main>
@@ -19,17 +20,29 @@
 </template>
 
 <script>
+import Loader from '@/components/app/Loader'
 import Navbar from '@/components/app/Navbar'
 import Sidebar from '@/components/app/Sidebar'
 
 export default {
   name: 'main-layout',
-  data: () => ({
-    isOpen: true
-  }),
+
   components: {
     Navbar,
     Sidebar
+  },
+
+  data: () => ({
+    isOpen: true,
+    loading: true
+  }),
+
+  async mounted() {
+    if (!Object.keys(this.$store.getters.info).length) {
+      await this.$store.dispatch('fetchInfo')
+    }
+
+    this.loading = false
   }
 }
 </script>
