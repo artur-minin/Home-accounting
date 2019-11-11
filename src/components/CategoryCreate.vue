@@ -51,10 +51,12 @@ export default {
     title: '',
     limit: 100
   }),
+
   validations: {
     title: { required },
     limit: { minValue: minValue(100) }
   },
+
   mounted() {
     M.updateTextFields()
   },
