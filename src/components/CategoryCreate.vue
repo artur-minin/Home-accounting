@@ -79,7 +79,7 @@ export default {
 
         this.title = ''
         this.limit = 100
-        // reset form validation
+        // reset the form's validation
         this.$v.reset()
       } catch (error) {}
     }
