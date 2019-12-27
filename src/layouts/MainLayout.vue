@@ -23,6 +23,7 @@
 import Loader from '@/components/app/Loader'
 import Navbar from '@/components/app/Navbar'
 import Sidebar from '@/components/app/Sidebar'
+import messages from '@/common/messages'
 
 export default {
   name: 'main-layout',
@@ -36,6 +37,19 @@ export default {
     isOpen: true,
     loading: true
   }),
+
+  computed: {
+    error() {
+      return this.$store.getters.error
+    }
+  },
+
+  watch: {
+    error(firebaseError) {
+      // $error - custom property from @/common/message.plugin.js
+      this.$error(messages[firebaseError.code] || 'Что-то пошло не так :(')
+    }
+  },
 
   async mounted() {
     if (!Object.keys(this.$store.getters.info).length) {
