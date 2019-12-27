@@ -8,10 +8,12 @@ import router from './router'
 import store from './store'
 import messagePlugin from '@/common/message.plugin'
 
+import Loader from '@/components/app/Loader'
+
+import tooltipDirective from '@/directives/tooltip.directive'
+
 import dateFilter from './filters/date.filter'
 import currencyFilter from './filters/currency.filter'
-
-import Loader from '@/components/app/Loader'
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -21,6 +23,8 @@ Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
 Vue.use(messagePlugin)
+
+Vue.directive('tooltip', tooltipDirective)
 
 // register custom filters globally
 Vue.filter('date', dateFilter)

@@ -10,7 +10,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    error: null
+    error: false
   },
   mutations: {
     setError(state, error) {
