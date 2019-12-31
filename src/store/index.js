@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import auth from './modules/auth'
 import info from './modules/info'
 import categories from './modules/categories'
-import record from './modules/record'
+import record from './modules/records'
 
 Vue.use(Vuex);
 

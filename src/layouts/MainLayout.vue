@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import Loader from '@/components/app/Loader'
 import Navbar from '@/components/app/Navbar'
 import Sidebar from '@/components/app/Sidebar'
 import messages from '@/common/messages'

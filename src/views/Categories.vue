@@ -24,8 +24,6 @@
 
 
 <script>
-import Loader from '@/components/app/Loader'
-
 import CategoryCreate from '@/components/CategoryCreate'
 import CategoryEdit from '@/components/CategoryEdit'
 
