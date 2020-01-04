@@ -39,10 +39,17 @@ import HistoryTable from '@/components/HistoryTable'
 
 export default {
   name: 'history',
+  metaInfo() {
+    return {
+      title: this.$title('Title_History')
+    }
+  },
   extends: Pie,
+
   components: {
     HistoryTable
   },
+
   mixins: [paginationMixin],
 
   data: () => ({

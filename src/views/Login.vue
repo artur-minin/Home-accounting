@@ -62,6 +62,11 @@ import localizeFilter from '@/filters/localize.filter'
 
 export default {
   name: 'login',
+  metaInfo() {
+    return {
+      title: this.$title('Title_Login')
+    }
+  },
 
   data: () => ({
     email: '',

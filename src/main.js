@@ -4,10 +4,14 @@ import 'materialize-css/dist/js/materialize.min'
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 import Paginate from 'vuejs-paginate'
+import VueMeta from 'vue-meta'
+
+import MessagePlugin from '@/utils/message.plugin'
+import TitlePlugin from '@/utils/title.plugin'
+
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import messagePlugin from '@/common/message.plugin'
 
 import Loader from '@/components/app/Loader'
 
@@ -24,7 +28,10 @@ import 'firebase/database'
 Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
-Vue.use(messagePlugin)
+Vue.use(VueMeta)
+
+Vue.use(MessagePlugin)
+Vue.use(TitlePlugin)
 
 Vue.directive('tooltip', tooltipDirective)
 
