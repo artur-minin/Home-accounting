@@ -5,5 +5,5 @@ export default function currencyFilter(value, userOptions) {
   }
 
   options = { ...options, ...userOptions }
-  return Intl.NumberFormat('ru-Ru', options).format(value);
+  return Intl.NumberFormat('ru-Ru', options).format(value)
 }

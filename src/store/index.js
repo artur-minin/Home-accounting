@@ -6,7 +6,7 @@ import info from './modules/info'
 import categories from './modules/categories'
 import record from './modules/records'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
@@ -39,4 +39,4 @@ export default new Vuex.Store({
     categories,
     record
   }
-});
+})

@@ -7,7 +7,7 @@ export default {
       pageSize: 3, // elements per page
       pageCount: 0,
       allItems: [],
-      currentPageItems: [],
+      currentPageItems: []
     }
   },
 
@@ -15,12 +15,14 @@ export default {
     setupPagination(allItems) {
       this.allItems = _.chunk(allItems, this.pageSize)
       this.pageCount = this.allItems.length
-      this.currentPageItems = this.allItems[this.currentPage - 1] || this.allItems[0]
+      this.currentPageItems =
+        this.allItems[this.currentPage - 1] || this.allItems[0]
     },
 
     pageChangeHandler() {
       this.$router.push(`${this.$route.path}?page=${this.currentPage}`)
-      this.currentPageItems = this.allItems[this.currentPage - 1] || this.allItems[0]
+      this.currentPageItems =
+        this.allItems[this.currentPage - 1] || this.allItems[0]
     }
   }
 }

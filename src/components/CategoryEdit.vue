@@ -2,7 +2,7 @@
   <div class="col s12 m6">
     <div>
       <div class="page-subtitle">
-        <h4>Редактировать</h4>
+        <h4>{{'CategoryEdit_Edit' | localize}}</h4>
       </div>
 
       <form @submit.prevent="submitHandler">
@@ -14,7 +14,7 @@
               :value="category.id"
             >{{category.title}}</option>
           </select>
-          <label>Выберите категорию</label>
+          <label>{{'CategoryEdit_SelectCategory' | localize}}</label>
         </div>
 
         <div class="input-field">
@@ -24,11 +24,11 @@
             v-model="title"
             :class="{invalid: $v.title.$dirty && !$v.title.required}"
           />
-          <label for="name">Название</label>
+          <label for="name">{{'CategoryEdit_Title' | localize}}</label>
           <span
             v-if="$v.title.$dirty && !$v.title.required"
             class="helper-text invalid"
-          >Введите название категории</span>
+          >{{'CategoryEdit_EnterCategoryName' | localize}}</span>
         </div>
 
         <div class="input-field">
@@ -38,15 +38,15 @@
             v-model.number="limit"
             :class="{invalid: $v.limit.$dirty && !$v.limit.minValue}"
           />
-          <label for="limit">Лимит</label>
+          <label for="limit">{{'CategoryEdit_Limit' | localize}}</label>
           <span
             v-if="$v.limit.$dirty && !$v.limit.minValue"
             class="helper-text invalid"
-          >Минимальная величина {{$v.limit.$params.minValue.min}}</span>
+          >{{'CategoryEdit_MinValue' | localize}} {{$v.limit.$params.minValue.min}}</span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
-          Обновить
+          {{'CategoryEdit_Update' | localize}}
           <i class="material-icons right">send</i>
         </button>
       </form>
@@ -56,6 +56,7 @@
 
 <script>
 import { required, minValue } from 'vuelidate/lib/validators'
+import localizeFilter from '@/filters/localize.filter'
 
 export default {
   props: {
@@ -103,8 +104,8 @@ export default {
         }
 
         await this.$store.dispatch('updateCategory', categoryData)
-        this.$message(`Категория ${this.title} успешно обновлена`)
-        this.$emit('categoryUpdated', categoryData)
+        this.$message(localizeFilter('CategoryEdit_CategoryHasBeenUpdated'))
+        this.$emit('category-updated', categoryData)
       } catch (error) {}
     }
   },

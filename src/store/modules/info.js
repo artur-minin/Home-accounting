@@ -9,14 +9,21 @@ export default {
       state.info = info
     },
     clearInfo(state) {
-      state.info = {}
+      state.info = {
+        locale: state.info.locale
+      }
     }
   },
   actions: {
     async fetchInfo({ dispatch, commit }) {
       try {
         const userID = await dispatch('getUserID')
-        const info = (await firebase.database().ref(`/users/${userID}/info`).once('value')).val()
+        const info = (
+          await firebase
+            .database()
+            .ref(`/users/${userID}/info`)
+            .once('value')
+        ).val()
 
         commit('setInfo', info)
       } catch (error) {
@@ -29,13 +36,16 @@ export default {
         const userID = await dispatch('getUserID')
         const updateData = { ...getters.info, ...newData }
 
-        await firebase.database().ref(`/users/${userID}/info`).update(updateData)
+        await firebase
+          .database()
+          .ref(`/users/${userID}/info`)
+          .update(updateData)
         commit('setInfo', updateData)
       } catch (error) {
         commit('setError', error)
         throw error
       }
-    },
+    }
   },
   getters: {
     info: state => state.info

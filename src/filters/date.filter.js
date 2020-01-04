@@ -1,3 +1,5 @@
+import store from '../store'
+
 export default function dateFilter(value, format = 'date', userOptions = {}) {
   let options = {
     weekday: 'long'
@@ -16,5 +18,6 @@ export default function dateFilter(value, format = 'date', userOptions = {}) {
 
   options = { ...options, ...userOptions }
 
-  return Intl.DateTimeFormat('ru-Ru', options).format(new Date(value));
+  const locale = store.getters.info.locale || 'ru-RU'
+  return Intl.DateTimeFormat(locale, options).format(new Date(value))
 }

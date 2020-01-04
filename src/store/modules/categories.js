@@ -5,7 +5,13 @@ export default {
     async fetchCategories({ dispatch, commit }) {
       try {
         const userID = await dispatch('getUserID')
-        const categories = (await firebase.database().ref(`/users/${userID}/categories`).once('value')).val() || {}
+        const categories =
+          (
+            await firebase
+              .database()
+              .ref(`/users/${userID}/categories`)
+              .once('value')
+          ).val() || {}
 
         return Object.keys(categories).map(categoryID => ({
           ...categories[categoryID],
@@ -20,7 +26,14 @@ export default {
     async fetchCategoryById({ dispatch, commit }, id) {
       try {
         const userID = await dispatch('getUserID')
-        const category = (await firebase.database().ref(`/users/${userID}/categories`).child(id).once('value')).val() || {}
+        const category =
+          (
+            await firebase
+              .database()
+              .ref(`/users/${userID}/categories`)
+              .child(id)
+              .once('value')
+          ).val() || {}
 
         return { ...category, id }
       } catch (error) {
@@ -32,7 +45,10 @@ export default {
     async createCategory({ dispatch, commit }, { title, limit }) {
       try {
         const userID = await dispatch('getUserID')
-        const category = await firebase.database().ref(`/users/${userID}/categories`).push({ title, limit })
+        const category = await firebase
+          .database()
+          .ref(`/users/${userID}/categories`)
+          .push({ title, limit })
 
         return { title, limit, id: category.key }
       } catch (error) {
@@ -44,13 +60,15 @@ export default {
     async updateCategory({ dispatch, commit }, { id, title, limit }) {
       try {
         const userID = await dispatch('getUserID')
-        await firebase.database().ref(`/users/${userID}/categories`).child(id).update({ title, limit })
-
+        await firebase
+          .database()
+          .ref(`/users/${userID}/categories`)
+          .child(id)
+          .update({ title, limit })
       } catch (error) {
         commit('setError', error)
         throw error
       }
     }
-
   }
 }

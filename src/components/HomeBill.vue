@@ -2,13 +2,9 @@
   <div class="col s12 m6 l4">
     <div class="card light-blue bill-card">
       <div class="card-content white-text">
-        <span class="card-title">Счет в валюте</span>
+        <span class="card-title">{{'HomeBill_BillInCurrency' | localize}}</span>
 
-        <p
-          class="currency-line"
-          v-for="currency in currencies"
-          :key="currency"
-        >
+        <p class="currency-line" v-for="currency in currencies" :key="currency">
           <span>{{getCurrency(currency) | currency({currency})}}</span>
         </p>
       </div>
@@ -26,7 +22,9 @@ export default {
 
   computed: {
     base() {
-      return this.$store.getters.info.bill / (this.rates['RUB'] / this.rates['EUR'])
+      return (
+        this.$store.getters.info.bill / (this.rates['RUB'] / this.rates['EUR'])
+      )
     }
   },
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>История записей</h3>
+      <h3>{{'History_RecordsHistory' | localize}}</h3>
     </div>
 
     <div class="history-chart">
@@ -11,8 +11,8 @@
     <Loader v-if="loading" />
 
     <p class="center" v-else-if="!records.length">
-      Записей пока нет,
-      <router-link to="/record">добавьте свою первую запись</router-link>
+      {{'History_NoRecordsYet' | localize}},
+      <router-link to="/record">{{'History_AddFirstRecord' | localize}}</router-link>
     </p>
 
     <section v-else>
@@ -22,8 +22,8 @@
         v-model="currentPage"
         :page-count="pageCount"
         :click-handler="pageChangeHandler"
-        :prev-text="'Назад'"
-        :next-text="'Вперед'"
+        :prev-text="'Back' | localize"
+        :next-text="'Forward' | localize"
         :container-class="'pagination'"
         :page-class="'waves-effect'"
       />
@@ -47,7 +47,7 @@ export default {
 
   data: () => ({
     loading: true,
-    records: [],
+    records: []
   }),
 
   methods: {
@@ -62,7 +62,7 @@ export default {
             category => category.id === record.categoryId
           ).title,
           recordColor: record.type === 'income' ? 'green' : 'red',
-          recordText: record.type === 'income' ? 'Доход' : 'Расход'
+          recordText: record.type === 'income' ? 'Income' : 'Outcome'
         }
       })
 
@@ -72,7 +72,8 @@ export default {
         labels: categories.map(category => category.title),
         datasets: [
           {
-            data: categories.map(category => { // sum all category's records
+            data: categories.map(category => {
+              // sum all category's records
               return this.records.reduce((total, record) => {
                 const isOutcome = record.type === 'outcome'
                 if (record.categoryId === category.id && isOutcome) {

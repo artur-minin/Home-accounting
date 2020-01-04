@@ -1,7 +1,7 @@
 <template>
   <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
-      <span class="card-title">Домашняя бухгалтерия</span>
+      <span class="card-title">{{'Login_HomeAccounting' | localize}}</span>
 
       <div class="input-field">
         <input
@@ -14,11 +14,11 @@
         <small
           class="helper-text invalid"
           v-if="$v.email.$dirty && !$v.email.required"
-        >Заполните поле Email</small>
+        >{{'Login_FillEmailField' | localize}}</small>
         <small
           class="helper-text invalid"
           v-else-if="$v.email.$dirty && !$v.email.email"
-        >Введите валидный email адрес</small>
+        >{{'Login_EnterValidEmailAddress' | localize}}</small>
       </div>
 
       <div class="input-field">
@@ -28,28 +28,28 @@
           v-model="password"
           :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
         />
-        <label for="password">Пароль</label>
+        <label for="password">{{'Login_Password' | localize}}</label>
         <small
           class="helper-text invalid"
           v-if="$v.password.$dirty && !$v.password.required"
-        >Введите пароль</small>
+        >{{'Login_EnterPassword' | localize}}</small>
         <small
           class="helper-text invalid"
           v-else-if="$v.password.$dirty && !$v.password.minLength"
-        >Осталось ввести {{symbolsNeeded}} символов</small>
+        >{{'Login_PasswordMinLength' | localize}} {{passwordMinLength}}</small>
       </div>
     </div>
     <div class="card-action">
       <div>
         <button class="btn waves-effect waves-light auth-submit" type="submit">
-          Войти
+          {{'Login_Login' | localize}}
           <i class="material-icons right">send</i>
         </button>
       </div>
 
       <p class="center">
-        Нет аккаунта?
-        <router-link to="/register">Зарегистрироваться</router-link>
+        {{'Login_NoAccount'}}?
+        <router-link to="/register">{{'Login_Register' | localize}}</router-link>
       </p>
     </div>
   </form>
@@ -58,6 +58,7 @@
 <script>
 import { email, required, minLength } from 'vuelidate/lib/validators'
 import messages from '@/common/messages'
+import localizeFilter from '@/filters/localize.filter'
 
 export default {
   name: 'login',
@@ -73,8 +74,8 @@ export default {
   },
 
   computed: {
-    symbolsNeeded: function() {
-      return this.$v.password.$params.minLength.min - this.password.length
+    passwordMinLength: function() {
+      return this.$v.password.$params.minLength.min
     }
   },
 
@@ -97,14 +98,14 @@ export default {
         await this.$store.dispatch('login', formData)
         this.$router.push('/')
       } catch (error) {}
-
     }
   },
 
   mounted() {
     if (messages[this.$route.query.message]) {
       // $message - custom property from @/common/message.plugin.js
-      this.$message(messages[this.$route.query.message])
+      const message = localizeFilter(messages[this.$route.query.message])
+      this.$message(message)
     }
   }
 }

@@ -1,71 +1,71 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import firebase from 'firebase/app';
+import Vue from 'vue'
+import Router from 'vue-router'
+import firebase from 'firebase/app'
 
-Vue.use(Router);
+Vue.use(Router)
 
 const routes = [
   {
     path: '/',
     name: 'home',
     meta: { layout: 'main', auth: true },
-    component: () => import('../views/Home.vue'),
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/register',
     name: 'register',
     meta: { layout: 'empty' },
-    component: () => import('../views/Register.vue'),
+    component: () => import('../views/Register.vue')
   },
   {
     path: '/login',
     name: 'login',
     meta: { layout: 'empty' },
-    component: () => import('../views/Login.vue'),
+    component: () => import('../views/Login.vue')
   },
   {
     path: '/categories',
     name: 'categories',
     meta: { layout: 'main', auth: true },
-    component: () => import('../views/Categories.vue'),
+    component: () => import('../views/Categories.vue')
   },
   {
     path: '/detail/:id',
     name: 'detail',
     meta: { layout: 'main', auth: true },
-    component: () => import('../views/Detail.vue'),
+    component: () => import('../views/Detail.vue')
   },
   {
     path: '/history',
     name: 'history',
     meta: { layout: 'main', auth: true },
-    component: () => import('../views/History.vue'),
+    component: () => import('../views/History.vue')
   },
   {
     path: '/planning',
     name: 'planning',
     meta: { layout: 'main', auth: true },
-    component: () => import('../views/Planning.vue'),
+    component: () => import('../views/Planning.vue')
   },
   {
     path: '/profile',
     name: 'profile',
     meta: { layout: 'main', auth: true },
-    component: () => import('../views/Profile.vue'),
+    component: () => import('../views/Profile.vue')
   },
   {
     path: '/record',
     name: 'record',
     meta: { layout: 'main', auth: true },
-    component: () => import('../views/Record.vue'),
-  },
-];
+    component: () => import('../views/Record.vue')
+  }
+]
 
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes,
-});
+  routes
+})
 
 // calls before each route change
 router.beforeEach((to, from, next) => {
@@ -82,4 +82,4 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-export default router;
+export default router

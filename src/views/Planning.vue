@@ -1,25 +1,24 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Планирование</h3>
+      <h3>{{'Planning_Planning' | localize}}</h3>
       <h4>{{info.bill | currency('RUB')}}</h4>
     </div>
 
     <Loader v-if="loading" />
 
     <p class="center" v-else-if="!categories.length">
-      Категорий нет
-      <br />
-      <router-link to="/categories">Добавить новую категорию</router-link>
+      {{'Planning_NoCategoriesYet' | localize}},
+      <router-link to="/categories">{{'Planning_AddNewCategory' | localize}}</router-link>
     </p>
 
     <section v-else>
-      <div v-for='category of categories' :key='category.categoryId'>
+      <div v-for="category of categories" :key="category.categoryId">
         <p>
           <strong>{{category.title}}:</strong>
-          {{category.spend | currency('RUB')}} из {{category.limit | currency('RUB')}}
+          {{category.spend | currency('RUB')}} {{'Planning_Of' | localize}} {{category.limit | currency('RUB')}}
         </p>
-        <div class="progress" v-tooltip="category.tooltip">
+        <div class="progress" v-tooltip.nolocalize="category.tooltip">
           <div
             class="determinate"
             :class="[category.progressColor]"
@@ -34,6 +33,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import currencyFilter from '@/filters/currency.filter'
+import localizeFilter from '@/filters/localize.filter'
 
 export default {
   name: 'planning',
@@ -43,6 +43,7 @@ export default {
   }),
 
   computed: {
+    // add info field to data from VueX info module
     ...mapGetters(['info'])
   },
 
@@ -60,14 +61,15 @@ export default {
 
       const percent = (100 * spend) / category.limit
       const progressPercent = percent > 100 ? 100 : percent
-      const progressColor = percent < 60
-        ? 'green'
-        : percent < 100
-          ? 'yellow'
-          : 'red'
+      const progressColor =
+        percent < 60 ? 'green' : percent < 100 ? 'yellow' : 'red'
 
       const tooltipValue = category.limit - spend
-      const tooltip = `${tooltipValue < 0 ? 'Превышение на' : 'Осталось'} ${currencyFilter(Math.abs(tooltipValue))}`
+      const tooltip = `${
+        tooltipValue < 0
+          ? localizeFilter('Planning_ExcessBy')
+          : localizeFilter('Planning_Stayed')
+      } ${currencyFilter(Math.abs(tooltipValue))}`
 
       return {
         ...category,

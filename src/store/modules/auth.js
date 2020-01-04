@@ -8,10 +8,13 @@ export default {
         const userID = await dispatch('getUserID')
 
         // set fields: name and bill in the database on a dynamic path
-        await firebase.database().ref(`/users/${userID}/info`).set({
-          name,
-          bill: 10000
-        })
+        await firebase
+          .database()
+          .ref(`/users/${userID}/info`)
+          .set({
+            name,
+            bill: 10000
+          })
       } catch (error) {
         // "commit" method changes the value of the store using a mutation
         commit('setError', error)

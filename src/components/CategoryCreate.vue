@@ -2,7 +2,7 @@
   <div class="col s12 m6">
     <div>
       <div class="page-subtitle">
-        <h4>Создать</h4>
+        <h4>{{'CategoryCreate_Create' | localize}}</h4>
       </div>
 
       <form @submit.prevent="submitHandler">
@@ -13,11 +13,11 @@
             v-model="title"
             :class="{invalid: $v.title.$dirty && !$v.title.required}"
           />
-          <label for="name">Название</label>
+          <label for="name">{{'CategoryCreate_Title' | localize}}</label>
           <span
             v-if="$v.title.$dirty && !$v.title.required"
             class="helper-text invalid"
-          >Введите название категории</span>
+          >{{'CategoryCreate_EnterCategoryName' | localize}}</span>
         </div>
 
         <div class="input-field">
@@ -27,15 +27,15 @@
             v-model.number="limit"
             :class="{invalid: $v.limit.$dirty && !$v.limit.minValue}"
           />
-          <label for="limit">Лимит</label>
+          <label for="limit">{{'CategoryCreate_Limit' | localize}}</label>
           <span
             v-if="$v.limit.$dirty && !$v.limit.minValue"
             class="helper-text invalid"
-          >Минимальная величина {{$v.limit.$params.minValue.min}}</span>
+          >{{'CategoryCreate_MinValue' | localize}} {{$v.limit.$params.minValue.min}}</span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
-          Создать
+          {{'CategoryCreate_Create' | localize}}
           <i class="material-icons right">send</i>
         </button>
       </form>
@@ -45,6 +45,7 @@
 
 <script>
 import { required, minValue } from 'vuelidate/lib/validators'
+import localizeFilter from '@/filters/localize.filter'
 
 export default {
   data: () => ({
@@ -74,7 +75,7 @@ export default {
           limit: this.limit
         })
 
-        this.$message(`Категория ${this.title} успешно создана`)
+        this.$message(localizeFilter('CategoryCreate_CategoryHasBeenCreated'))
         this.$emit('category-created', category)
 
         this.title = ''
