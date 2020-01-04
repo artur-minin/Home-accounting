@@ -27,7 +27,7 @@
           <button
             class="btn-small btn"
             @click="$router.push(`/detail/${id}`)"
-            v-tooltip="'Посмотреть детали'"
+            v-tooltip="'HistoryTable_SeeDetails'"
           >
             <i class="material-icons">open_in_new</i>
           </button>

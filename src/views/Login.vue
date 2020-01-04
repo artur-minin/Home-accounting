@@ -48,7 +48,7 @@
       </div>
 
       <p class="center">
-        {{'Login_NoAccount'}}?
+        {{'Login_NoAccount' | localize}}?
         <router-link to="/register">{{'Login_Register' | localize}}</router-link>
       </p>
     </div>
